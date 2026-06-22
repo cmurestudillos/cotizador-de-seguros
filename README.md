@@ -60,8 +60,8 @@
 ## ⚡ Inicio Rápido
 
 ### Prerrequisitos
-- **Node.js** 18.0 o superior
-- **npm** o **yarn**
+- **Node.js** 20.0 o superior
+- **pnpm** 11.x ([instalación](https://pnpm.io/installation))
 
 ### Instalación
 
@@ -73,16 +73,12 @@ cd cotizador-de-seguros
 
 2. **Instala las dependencias**
 ```bash
-npm install
-# o
-yarn install
+pnpm install
 ```
 
 3. **Inicia el servidor de desarrollo**
 ```bash
-npm run dev
-# o
-yarn dev
+pnpm dev
 ```
 
 4. **Abre tu navegador** en `http://localhost:3000`
@@ -92,7 +88,7 @@ yarn dev
 ## 🏗️ Tecnologías Utilizadas
 
 ### Frontend
-- **[React 18](https://reactjs.org/)** - Librería de UI
+- **[React 19](https://reactjs.org/)** - Librería de UI
 - **[TypeScript](https://www.typescriptlang.org/)** - Tipado estático
 - **[Vite](https://vitejs.dev/)** - Build tool ultra rápido
 - **[Emotion](https://emotion.sh/)** - CSS-in-JS para estilos
@@ -124,18 +120,20 @@ src/
 │   ├── Resumen.tsx                  # Resumen visual de la cotización
 │   ├── Resultado.tsx                # Resultado con opciones de acción
 │   ├── HistorialPresupuestos.tsx    # Gestión completa de historial
+│   ├── EstadisticasAvanzadas.tsx    # Estadísticas del historial
 │   ├── ComparadorPresupuestos.tsx   # Modal de comparación
+│   ├── Footer.tsx
 │   └── Spinner/                     # Componente de loading
 ├── hooks/                           # Custom hooks
 │   ├── useInsuranceCalculator.ts    # Lógica de cálculo
-│   └── usePresupuestosStorage.ts    # Gestión de almacenamiento
+│   └── usePresupuestosStorage.ts    # Gestión de almacenamiento (localStorage)
 ├── types/                           # Definiciones TypeScript
-│   └── presupuesto.ts
+│   └── index.ts
 ├── helpers/                         # Funciones utilitarias
 │   └── helper.ts                    # Cálculos y constantes
 ├── utils/                           # Utilidades generales
-│   └── exportUtils.ts               # Funciones de exportación
-├── styles/                          # Estilos globales
+│   └── exportUtils.ts               # Funciones de exportación (CSV, reportes)
+├── assets/css/                      # Estilos globales
 │   └── modern.css                   # CSS moderno con variables
 └── App.tsx                          # Componente raíz
 ```

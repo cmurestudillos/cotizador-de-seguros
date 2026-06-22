@@ -1,7 +1,7 @@
 export interface DatosSeguro {
-  marca: string;
+  marca: Marca | '';
   year: string;
-  plan: string;
+  plan: Plan | '';
 }
 
 export interface Presupuesto {

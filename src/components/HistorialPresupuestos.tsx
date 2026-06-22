@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
 import { primerMayuscula } from '../helpers/helper';
-import type { Presupuesto, FiltrosPresupuesto } from '../types';
+import type { Presupuesto, FiltrosPresupuesto, DatosSeguro } from '../types';
 
 interface HistorialProps {
   presupuestos: Presupuesto[];
-  onEditarPresupuesto: (datos: any) => void;
+  onEditarPresupuesto: (datos: DatosSeguro) => void;
   onCompararPresupuestos: (presupuestos: Presupuesto[]) => void;
   onEliminarPresupuesto: (id: string) => void;
   onToggleFavorito: (id: string) => void;
   onLimpiarHistorial: () => void;
   onExportarCSV: () => void;
-  onRecargar: () => void; // Para debug
+  onRecargar: () => void;
 }
 
 const Container = styled.div`
@@ -76,15 +76,6 @@ const BotonAccion = styled.button<{ variant?: 'primary' | 'secondary' | 'danger'
         `;
     }
   }}
-`;
-
-const DebugInfo = styled.div`
-  background: #f0f0f0;
-  padding: 1rem;
-  border-radius: 6px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  color: #666;
 `;
 
 const Filtros = styled.div`
@@ -240,14 +231,6 @@ export const HistorialPresupuestos: React.FC<HistorialProps> = ({
   const [filtros, setFiltros] = useState<FiltrosPresupuesto>({});
   const [mostrarFiltros, setMostrarFiltros] = useState(false);
   const [seleccionados, setSeleccionados] = useState<string[]>([]);
-  const [mostrarDebug, setMostrarDebug] = useState(false);
-
-  // Debug: Verificar localStorage al montar el componente
-  useEffect(() => {
-    const stored = localStorage.getItem('cotizador-presupuestos');
-    console.log('HistorialPresupuestos montado. localStorage:', stored);
-    console.log('Presupuestos recibidos como props:', presupuestos);
-  }, [presupuestos]);
 
   const presupuestosFiltrados = presupuestos.filter(presupuesto => {
     if (filtros.marca && presupuesto.datos.marca !== filtros.marca) return false;
@@ -258,7 +241,7 @@ export const HistorialPresupuestos: React.FC<HistorialProps> = ({
     return true;
   });
 
-  const handleFiltroChange = (campo: keyof FiltrosPresupuesto, valor: any) => {
+  const handleFiltroChange = (campo: keyof FiltrosPresupuesto, valor: string | boolean) => {
     setFiltros(prev => ({ ...prev, [campo]: valor || undefined }));
   };
 
@@ -282,29 +265,10 @@ export const HistorialPresupuestos: React.FC<HistorialProps> = ({
   if (presupuestos.length === 0) {
     return (
       <Container>
-        {/* Debug info - remover en producción */}
-        {/* {mostrarDebug && (
-          <DebugInfo>
-            <strong>Debug Info:</strong>
-            <br />- Presupuestos en estado: {presupuestos.length}
-            <br />- localStorage: {localStorage.getItem('cotizador-presupuestos') ? 'Existe' : 'Vacío'}
-            <br />
-            <BotonAccion onClick={onRecargar}>🔄 Recargar</BotonAccion>
-            <BotonAccion onClick={() => setMostrarDebug(!mostrarDebug)}>
-              {mostrarDebug ? 'Ocultar' : 'Mostrar'} Debug
-            </BotonAccion>
-          </DebugInfo>
-        )} */}
-
         <NoPresupuestos>
           📋 No tienes presupuestos guardados aún
           <br />
           <small>Los presupuestos se guardan automáticamente cuando realizas una cotización</small>
-          <br />
-          <br />
-          {/* <BotonAccion onClick={() => setMostrarDebug(!mostrarDebug)}>
-            🔧 {mostrarDebug ? 'Ocultar' : 'Mostrar'} Info de Debug
-          </BotonAccion> */}
         </NoPresupuestos>
       </Container>
     );
