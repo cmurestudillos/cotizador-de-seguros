@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { obtenerDiferenciaYear, calcularMarca, obtenerPlan } from '../helpers/helper';
-import type { ResumenSeguro, DatosSeguro } from '../types';
+import type { ResumenSeguro, DatosSeguro, Marca, Plan } from '../types';
 
 export const useInsuranceCalculator = () => {
   const [resumen, setResumen] = useState<ResumenSeguro>({
@@ -19,9 +19,9 @@ export const useInsuranceCalculator = () => {
     const diferencia = obtenerDiferenciaYear(parseInt(datos.year));
     resultado -= (diferencia * 3 * resultado) / 100;
 
-    resultado = calcularMarca(datos.marca as any) * resultado;
+    resultado = calcularMarca(datos.marca as Marca) * resultado;
 
-    const incrementoPlan = obtenerPlan(datos.plan as any);
+    const incrementoPlan = obtenerPlan(datos.plan as Plan);
     return parseFloat((incrementoPlan * resultado).toFixed(2));
   }, []);
 

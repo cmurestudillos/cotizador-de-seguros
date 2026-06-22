@@ -251,9 +251,7 @@ const AppFinal: React.FC = () => {
 
     if (!modoEdicion && resultado) {
       // Guardar en el historial solo para nuevos presupuestos
-      console.log('Guardando nuevo presupuesto:', resultado); // Debug
-      const nuevoId = agregarPresupuesto(resultado.cotizacion, resultado.datos, notas);
-      console.log('ID del nuevo presupuesto:', nuevoId); // Debug
+      agregarPresupuesto(resultado.cotizacion, resultado.datos, notas);
 
       setPresupuestoRecienCreado(true);
       setContadorHistorial(prev => prev + 1);
